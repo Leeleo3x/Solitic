@@ -9,12 +9,18 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     antlr "org.antlr:antlr4:4.7.2"
     compile "org.antlr:antlr4-runtime:4.7.2"
     compile "org.jetbrains.kotlin:kotlin-stdlib"
+    compile "com.google.code.gson:gson:2.8.5"
+    compile "org.sosy-lab:java-smt:2.0.0"
+    compile name: "com.microsoft.z3"
 }
 
 generateGrammarSource {
