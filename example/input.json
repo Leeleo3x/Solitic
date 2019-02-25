@@ -1,4 +1,12 @@
 {
+  "stateVariable": {
+    "balanceOf": "address"
+  },
+  "input": {
+    "addr": "address[]",
+    "value": "uint256",
+    "msg.sender": "address"
+  },
   "pre": {
     "balanceOf": {
       1: 100,

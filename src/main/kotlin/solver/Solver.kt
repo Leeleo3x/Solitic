@@ -26,20 +26,27 @@ class Solver {
     val prover = context.newProverEnvironment(SolverContext.ProverOptions.GENERATE_MODELS)
 
     val formulaMap = HashMap<String, Formula>()
-
     fun create(name: String, type: TypeNameContext, data: JsonElement) {
         var variable: Formula? = null
         when (type.childCount) {
             1 -> {
-                when (type.getChild(0)) {
+                val child = type.getChild(0)
+                when (child) {
                     is ElementaryTypeNameContext -> {
-                        val typeNode = type.getChild(0) as TerminalNode
+                        val typeNode = child.getChild(0) as TerminalNode
                         when (typeNode.symbol.type) {
                             SolidityParser.Uint,
                             SolidityParser.Int -> {
                                 variable = integerFormula.makeVariable(name)
                                 val value = integerFormula.makeNumber(data.asBigInteger)
                                 prover.addConstraint(integerFormula.equal(variable, value))
+                            }
+                            else -> {
+                                if (typeNode.text == "address") {
+                                    variable = integerFormula.makeVariable(name)
+                                    val value = integerFormula.makeNumber(data.asBigInteger)
+                                    prover.addConstraint(integerFormula.equal(variable, value))
+                                }
                             }
                         }
                     }
@@ -69,6 +76,7 @@ class Solver {
                     arr = arrayFormula.store(arr, intKey, intVal)
 
                 }
+                variable = arr
             }
         }
         variable?.let { formulaMap[name] = variable }
