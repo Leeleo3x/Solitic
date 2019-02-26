@@ -1,7 +1,5 @@
 package me.leo.project.solidity
 
-
-import Model.Nodes.Statement
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import me.leo.project.solidity.Model.Nodes.BlockStatement
