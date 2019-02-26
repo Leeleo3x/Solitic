@@ -8,12 +8,14 @@ class Assignment(val variable: Variable, val expression: Expression): Statement(
 
     companion object {
         fun generate(parent: Node): Assignment? {
-            val left = Variable.generate(parent, PrimitiveType.INT::class)
-            Expression.generate(parent)?.let {
-                val assign = Assignment(left, it)
-                left.parent = assign
-                it.parent = assign
-                return assign
+            Variable.generate(parent, PrimitiveType.INT::class)?.let { left ->
+                Expression.generate(parent)?.let { right ->
+                    val assign = Assignment(left, right)
+                    left.parent = assign
+                    right.parent = assign
+                    return assign
+                }
+
             }
             return null
         }

@@ -13,13 +13,15 @@ class ForEachStatement(val condition: Expression, val body: BlockStatement): Sta
     }
 
     companion object {
-        fun generate(parent: Statement): ForEachStatement {
-            val variable = Variable.generate(parent, ArrayType::class)
-            val blockStatement = BlockStatement()
-            val foreach = ForEachStatement(variable, blockStatement)
-            blockStatement.parent = foreach
-            variable.parent = foreach
-            return foreach
+        fun generate(parent: Statement): ForEachStatement? {
+            Variable.generate(parent, ArrayType::class)?.let { variable ->
+                val blockStatement = BlockStatement()
+                val foreach = ForEachStatement(variable, blockStatement)
+                blockStatement.parent = foreach
+                variable.parent = foreach
+                return foreach
+            }
+            return null
         }
     }
 }

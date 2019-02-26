@@ -20,12 +20,15 @@ sealed class BinaryOperation(val left: Expression, val right: Expression): Expre
         fun generate(parent: Node): BinaryOperation? {
             val op = BinaryOperation::class.sealedSubclasses.random()
             val constructor = op.primaryConstructor
-            val left = Variable.generate(parent, PrimitiveType.INT::class)
-            val right = Variable.generate(parent, PrimitiveType.INT::class)
-            val operation = constructor?.call(left, right)
-            left.parent = operation
-            right.parent = operation
-            return operation
+            Variable.generate(parent, PrimitiveType.INT::class)?.let { left ->
+                Variable.generate(parent, PrimitiveType.INT::class)?.let {right ->
+                    val operation = constructor?.call(left, right)
+                    left.parent = operation
+                    right.parent = operation
+                    return operation
+                }
+            }
+            return null
         }
     }
 }
