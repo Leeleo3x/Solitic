@@ -38,6 +38,12 @@ abstract class Node {
 abstract class Expression: Node() {
     abstract val type: Type
     override val scope = null
+
+    companion object {
+        fun generate(parent: Node): Expression? {
+            return BinaryOperation.generate(parent)
+        }
+    }
 }
 
 abstract class AssignableExpression: Expression()

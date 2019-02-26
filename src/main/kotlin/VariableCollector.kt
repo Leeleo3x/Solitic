@@ -1,7 +1,7 @@
 package me.leo.project.solidity
 
 import Model.Nodes.Node
-import me.leo.project.solidity.Model.Nodes.Program
+import me.leo.project.solidity.Model.Nodes.BlockStatement
 import me.leo.project.solidity.Model.PrimitiveType
 import me.leo.project.solidity.Model.Type
 import me.leo.project.solidity.Model.Types.ArrayType
@@ -11,7 +11,7 @@ import me.leo.project.solidity.SolidityParser.*
 import org.antlr.v4.runtime.tree.TerminalNode
 
 
-class VariableCollector(val program: Program): SolidityBaseVisitor<Type?>() {
+class VariableCollector(val program: BlockStatement): SolidityBaseVisitor<Type?>() {
 
     fun createVariable(name: String, type: Type) {
         program.scope.symbols[name] = type

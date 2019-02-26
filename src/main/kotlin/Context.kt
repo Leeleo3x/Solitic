@@ -5,5 +5,5 @@ import me.leo.project.solidity.Model.Variable
 import me.leo.project.solidity.solver.Solver
 import org.antlr.v4.runtime.tree.TerminalNode
 
-class Context(val identifiers: Map<String, Variable>, solver: Solver, post: JsonObject) {
+class Context(solver: Solver, post: JsonObject) {
 }

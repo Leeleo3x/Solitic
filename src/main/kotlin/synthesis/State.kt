@@ -1,8 +1,7 @@
 package me.leo.project.solidity.synthesis
 
-import com.microsoft.z3.Solver
-import me.leo.project.solidity.Context
-import me.leo.project.solidity.Model.Nodes.Program
+import me.leo.project.solidity.Model.Nodes.BlockStatement
+import me.leo.project.solidity.solver.Solver
 
-class State(val solver: Solver, val program: Program) {
+class State(val solver: Solver, val program: BlockStatement) {
 }

@@ -2,6 +2,10 @@ package me.leo.project.solidity.solver
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import me.leo.project.solidity.Model.PrimitiveType
+import me.leo.project.solidity.Model.Type
+import me.leo.project.solidity.Model.Types.ArrayType
+import me.leo.project.solidity.Model.Types.MappingType
 import me.leo.project.solidity.SolidityParser
 import me.leo.project.solidity.SolidityParser.*
 import org.antlr.v4.runtime.tree.TerminalNode
@@ -26,31 +30,16 @@ class Solver {
     val prover = context.newProverEnvironment(SolverContext.ProverOptions.GENERATE_MODELS)
 
     val formulaMap = HashMap<String, Formula>()
-    fun create(name: String, type: TypeNameContext, data: JsonElement) {
+
+    fun init(name: String, type: Type, data: JsonElement) {
         var variable: Formula? = null
-        when (type.childCount) {
-            1 -> {
-                val child = type.getChild(0)
-                when (child) {
-                    is ElementaryTypeNameContext -> {
-                        val typeNode = child.getChild(0) as TerminalNode
-                        when (typeNode.symbol.type) {
-                            SolidityParser.Uint,
-                            SolidityParser.Int -> {
-                                variable = integerFormula.makeVariable(name)
-                                val value = integerFormula.makeNumber(data.asBigInteger)
-                                prover.addConstraint(integerFormula.equal(variable, value))
-                            }
-                            else -> {
-                                if (typeNode.text == "address") {
-                                    variable = integerFormula.makeVariable(name)
-                                    val value = integerFormula.makeNumber(data.asBigInteger)
-                                    prover.addConstraint(integerFormula.equal(variable, value))
-                                }
-                            }
-                        }
-                    }
-                    is MappingContext -> {
+        when (type) {
+            PrimitiveType.INT, PrimitiveType.ADDRESS -> {
+                variable = integerFormula.makeVariable(name)
+                val value = integerFormula.makeNumber(data.asBigInteger)
+                prover.addConstraint(integerFormula.equal(variable, value))
+            }
+            is MappingType -> {
                         var arr = arrayFormula.makeArray(name,
                                 FormulaType.IntegerType,
                                 FormulaType.IntegerType)
@@ -62,12 +51,8 @@ class Solver {
 
                         }
                         variable = arr
-                    }
-                }
             }
-            2 ->
-                integerFormula.makeVariable(name)
-            else -> {
+            is ArrayType -> {
                 var arr = arrayFormula.makeArray(name, FormulaType.IntegerType,
                         FormulaType.IntegerType)
                 data.asJsonArray.forEachIndexed { index, element ->

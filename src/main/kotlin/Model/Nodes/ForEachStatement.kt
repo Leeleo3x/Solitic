@@ -8,20 +8,22 @@ import me.leo.project.solidity.synthesis.Generator
 
 class ForEachStatement(val condition: Expression, val body: BlockStatement): Statement() {
     override val scope = Scope()
+    val element: String
+
+    init {
+        val type = (condition.type as ArrayType).subtype
+        element = createVariable(type)
+        scope.symbols[element] = type
+    }
 
     companion object {
-        fun generate(parent: Statement): ForEachStatement? {
-            Generator.generateArrayVariable(parent.variables())?.let {
-                val blockStatment = BlockStatement(mutableListOf())
-                val variable = Variable(it.first, it.second)
-                val foreach = ForEachStatement(variable, blockStatment)
-                blockStatment.parent = foreach
-                variable.parent = foreach
-                val elementType = (it.second as ArrayType).subtype
-                foreach.scope.symbols[createVariable(elementType)] = elementType
-                return foreach
-            }
-            return null
+        fun generate(parent: Statement): ForEachStatement {
+            val variable = Variable.generate(parent, ArrayType::class)
+            val blockStatement = BlockStatement()
+            val foreach = ForEachStatement(variable, blockStatement)
+            blockStatement.parent = foreach
+            variable.parent = foreach
+            return foreach
         }
     }
 }

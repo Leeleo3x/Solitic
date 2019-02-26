@@ -4,7 +4,9 @@ interface Type {
 }
 
 
-enum class PrimitiveType: Type {
-    INT, ADDRESS, ANY
+sealed class PrimitiveType: Type {
+    object INT: PrimitiveType()
+    object ADDRESS: PrimitiveType()
+    object ANY: PrimitiveType()
 }
 

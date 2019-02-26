@@ -1,0 +1,17 @@
+{
+  "stateVariable": {
+    "sum": "uint256"
+  },
+  "input": {
+    "input": "uint256",
+    "msg.sender": "address"
+  },
+  "pre": {
+    "sum": 1,
+    "input": 100,
+    "msg.sender": 3
+  },
+  "post": {
+    "sum": 101
+  }
+}
