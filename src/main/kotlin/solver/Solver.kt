@@ -2,13 +2,10 @@ package me.leo.project.solidity.solver
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import me.leo.project.solidity.Model.PrimitiveType
-import me.leo.project.solidity.Model.Type
-import me.leo.project.solidity.Model.Types.ArrayType
-import me.leo.project.solidity.Model.Types.MappingType
-import me.leo.project.solidity.SolidityParser
-import me.leo.project.solidity.SolidityParser.*
-import org.antlr.v4.runtime.tree.TerminalNode
+import me.leo.project.solidity.model.types.ArrayType
+import me.leo.project.solidity.model.types.MappingType
+import me.leo.project.solidity.model.types.PrimitiveType
+import me.leo.project.solidity.model.types.Type
 import org.sosy_lab.common.ShutdownNotifier
 import org.sosy_lab.common.configuration.Configuration
 import org.sosy_lab.common.log.BasicLogManager

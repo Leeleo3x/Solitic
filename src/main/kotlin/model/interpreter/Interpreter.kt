@@ -1,14 +1,9 @@
-package me.leo.project.solidity.Model.Interpretor
+package me.leo.project.solidity.model.interpreter
 
-import Model.Nodes.Assignment
-import Model.Nodes.BinaryOperation
-import Model.Nodes.BinaryOperation.*
-import Model.Nodes.Expression
-import Model.Nodes.Node
 import com.google.gson.JsonObject
-import me.leo.project.solidity.Model.Nodes.BlockStatement
-import me.leo.project.solidity.Model.PrimitiveType
-import me.leo.project.solidity.Model.Variable
+import me.leo.project.solidity.model.nodes.*
+import me.leo.project.solidity.model.nodes.BinaryOperation.*
+import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.synthesis.State
 import org.sosy_lab.java_smt.api.Formula
 import org.sosy_lab.java_smt.api.NumeralFormula.*

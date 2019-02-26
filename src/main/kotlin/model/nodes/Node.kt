@@ -1,9 +1,6 @@
-package Model.Nodes
+package me.leo.project.solidity.model.nodes
 
-import me.leo.project.solidity.Model.Nodes.Scope
-import me.leo.project.solidity.Model.PrimitiveType
-import me.leo.project.solidity.Model.Type
-import me.leo.project.solidity.Model.Variable
+import me.leo.project.solidity.model.types.Type
 
 interface NodeType
 

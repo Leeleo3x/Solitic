@@ -1,11 +1,9 @@
 package me.leo.project.solidity.synthesis
 
-import Model.Nodes.Assignment
-import Model.Nodes.ForEachStatement
-import Model.Nodes.Node
-import Model.Nodes.Statement
-import me.leo.project.solidity.Model.Type
-import me.leo.project.solidity.Model.Types.ArrayType
+import me.leo.project.solidity.model.nodes.Assignment
+import me.leo.project.solidity.model.nodes.Statement
+import me.leo.project.solidity.model.types.ArrayType
+import me.leo.project.solidity.model.types.Type
 import kotlin.reflect.full.companionObject
 import kotlin.reflect.full.functions
 

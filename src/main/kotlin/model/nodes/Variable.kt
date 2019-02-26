@@ -1,11 +1,7 @@
-package me.leo.project.solidity.Model
+package me.leo.project.solidity.model.nodes
 
-import Model.Nodes.AssignableExpression
-import Model.Nodes.Node
-import me.leo.project.solidity.Model.Types.ArrayType
-import org.sosy_lab.java_smt.api.Formula
+import me.leo.project.solidity.model.types.Type
 import kotlin.reflect.KClass
-import kotlin.reflect.jvm.internal.impl.resolve.constants.KClassValue
 
 
 class Variable(val name: String, override val type: Type): AssignableExpression() {

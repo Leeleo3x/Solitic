@@ -1,6 +1,6 @@
-package Model.Nodes
+package me.leo.project.solidity.model.nodes
 
-import me.leo.project.solidity.Model.Types.ArrayType
+import me.leo.project.solidity.model.types.ArrayType
 
 
 class ArrayIndexing(val array: Expression, val indexing: Expression): AssignableExpression() {

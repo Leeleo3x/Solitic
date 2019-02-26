@@ -1,8 +1,6 @@
-package Model.Nodes
+package me.leo.project.solidity.model.nodes
 
-import me.leo.project.solidity.Model.PrimitiveType
-import me.leo.project.solidity.Model.Variable
-import kotlin.reflect.full.createInstance
+import me.leo.project.solidity.model.types.PrimitiveType
 import kotlin.reflect.full.primaryConstructor
 
 

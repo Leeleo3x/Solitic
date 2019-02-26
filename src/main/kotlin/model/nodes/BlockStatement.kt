@@ -1,7 +1,4 @@
-package me.leo.project.solidity.Model.Nodes
-
-import Model.Nodes.Node
-import Model.Nodes.Statement
+package me.leo.project.solidity.model.nodes
 
 
 class BlockStatement(val statements: MutableList<Statement> = mutableListOf()): Statement() {

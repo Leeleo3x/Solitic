@@ -1,10 +1,6 @@
-package Model.Nodes
+package me.leo.project.solidity.model.nodes
 
-import me.leo.project.solidity.Model.Nodes.BlockStatement
-import me.leo.project.solidity.Model.Nodes.Scope
-import me.leo.project.solidity.Model.Types.ArrayType
-import me.leo.project.solidity.Model.Variable
-import me.leo.project.solidity.synthesis.Generator
+import me.leo.project.solidity.model.types.ArrayType
 
 class ForEachStatement(val condition: Expression, val body: BlockStatement): Statement() {
     override val scope = Scope()

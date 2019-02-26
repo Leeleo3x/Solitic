@@ -1,11 +1,13 @@
-package me.leo.project.solidity
+package me.leo.project.solidity.cli
 
 
-import Model.Nodes.Statement
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import me.leo.project.solidity.Model.Nodes.BlockStatement
-import me.leo.project.solidity.Model.PrimitiveType
+import me.leo.project.solidity.SolidityLexer
+import me.leo.project.solidity.SolidityParser
+import me.leo.project.solidity.VariableCollector
+import me.leo.project.solidity.model.nodes.BlockStatement
+import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.solver.Solver
 import me.leo.project.solidity.synthesis.State
 import me.leo.project.solidity.synthesis.Synthesizer
