@@ -1,4 +1,4 @@
-package me.leo.project.solidity.Model
+package me.leo.project.solidity.model.types
 
 interface Type {
 }

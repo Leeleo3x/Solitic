@@ -1,7 +1,7 @@
 package me.leo.project.solidity.synthesis
 
 import com.google.gson.JsonObject
-import me.leo.project.solidity.Model.Interpretor.Interpreter
+import me.leo.project.solidity.model.interpreter.Interpreter
 
 class Synthesizer(val initState: State, val post: JsonObject) {
     fun run() {

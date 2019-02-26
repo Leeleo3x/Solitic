@@ -1,13 +1,11 @@
 package me.leo.project.solidity
 
-import Model.Nodes.Node
-import me.leo.project.solidity.Model.Nodes.BlockStatement
-import me.leo.project.solidity.Model.PrimitiveType
-import me.leo.project.solidity.Model.Type
-import me.leo.project.solidity.Model.Types.ArrayType
-import me.leo.project.solidity.Model.Types.MappingType
-import me.leo.project.solidity.Model.Variable
 import me.leo.project.solidity.SolidityParser.*
+import me.leo.project.solidity.model.nodes.BlockStatement
+import me.leo.project.solidity.model.types.ArrayType
+import me.leo.project.solidity.model.types.MappingType
+import me.leo.project.solidity.model.types.PrimitiveType
+import me.leo.project.solidity.model.types.Type
 import org.antlr.v4.runtime.tree.TerminalNode
 
 
