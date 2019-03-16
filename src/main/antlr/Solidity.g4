@@ -16,7 +16,7 @@
 grammar Solidity;
 
 sourceUnit
-  : (pragmaDirective | importDirective | contractDefinition)* EOF ;
+  : (pragmaDirective | importDirective | contractDefinition | standardDefinition)* EOF ;
 
 pragmaDirective
   : 'pragma' pragmaName pragmaValue ';' ;
@@ -38,6 +38,13 @@ versionConstraint
 
 importDeclaration
   : identifier ('as' identifier)? ;
+
+standardDefinition
+  : 'standard' Identifier
+    '{' contractPart* constraint '}' EOF;
+
+constraint
+  : 'constraint' expression ';';
 
 importDirective
   : 'import' StringLiteral ('as' identifier)? ';'
@@ -253,7 +260,15 @@ expression
   | expression '||' expression
   | expression '?' expression ':' expression
   | expression ('=' | '|=' | '^=' | '&=' | '<<=' | '>>=' | '+=' | '-=' | '*=' | '/=' | '%=') expression
+  | forAllExpression
+  | sumExpression
   | primaryExpression ;
+
+forAllExpression
+  : 'ForAll' identifier ',' expression;
+
+sumExpression
+  : 'Sum' identifier ',' expression ',' expression;
 
 primaryExpression
   : BooleanLiteral

@@ -1,11 +1,13 @@
 package me.leo.project.solidity.model.nodes
 
+import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.model.types.Type
 
 interface NodeType
 
 abstract class Node {
     var parent: Node? = null
+    open val hasMuVariable = false
 
     fun pathToRoot(): Iterable<Node> {
         return NodeIterable(this)
@@ -33,14 +35,8 @@ abstract class Node {
 }
 
 abstract class Expression: Node() {
-    abstract val type: Type
-    override val scope = null
-
-    companion object {
-        fun generate(parent: Node): Expression? {
-            return BinaryOperation.generate(parent)
-        }
-    }
+    var type: Type = PrimitiveType.ANY
+    override val scope: Scope? = null
 }
 
 abstract class AssignableExpression: Expression()

@@ -2,14 +2,14 @@ package me.leo.project.solidity.cli
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import me.leo.project.solidity.SolidityLexer
-import me.leo.project.solidity.SolidityParser
-import me.leo.project.solidity.VariableCollector
+import me.leo.project.solidity.*
 import me.leo.project.solidity.model.nodes.BlockStatement
 import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.solver.Solver
 import me.leo.project.solidity.synthesis.State
 import me.leo.project.solidity.synthesis.Synthesizer
+import me.leo.project.solidity.visitors.ConstraintBuilder
+import me.leo.project.solidity.visitors.VariableCollector
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import java.io.FileReader
@@ -20,25 +20,22 @@ fun prepareInitState(src: String, constraints: String) {
     val stream = CharStreams.fromFileName(src)
     val lexer = SolidityLexer(stream)
     val parser = SolidityParser(CommonTokenStream(lexer))
-    val solver = Solver()
+    val source = parser.sourceUnit()
 
-    val program = BlockStatement()
-    val collector = VariableCollector(program)
-    collector.visit(parser.sourceUnit())
-    program.scope.symbols["msg.sender"] = PrimitiveType.ADDRESS
+    val collector = VariableCollector()
+    collector.visit(source)
+    val builder = ConstraintBuilder(collector.symbols)
+    builder.visit(source)
+}
 
-    val json = Gson().fromJson(FileReader(constraints), JsonObject::class.java)
-
-    val pre = json["pre"].asJsonObject
-    program.scope.symbols.forEach {
-        solver.init(it.key, it.value, pre[it.key])
-    }
-    val state = State(solver, program)
-    val synthesizer = Synthesizer(state, json["post"].asJsonObject)
-    synthesizer.run()
+fun parseStandard(src: String) {
+//    val stream = CharStreams.fromFileName(src)
+//    val lexer = StandardLexer(stream)
+//    val parser = StandardParser(CommonTokenStream(lexer))
+//    val standard = parser.standardDefinition()
+//    print(standard)
 }
 
 fun main(args: Array<String>) {
-    prepareInitState(args[1], args[0])
-
+    prepareInitState(args[0], args[0])
 }

@@ -15,16 +15,16 @@ class Interpreter(val state: State) {
     fun Expression.visit(): Formula? {
         return when(this) {
             is Variable -> solver.formulaMap[this.name]
-            is BinaryOperation -> {
-                val left = this.left.visit() as IntegerFormula
-                val right = this.right.visit() as IntegerFormula
-                when(this) {
-                    is AddOperation -> solver.integerFormula.add(left, right)
-                    is SubOperation -> solver.integerFormula.subtract(left, right)
-                    is MulOperation -> solver.integerFormula.multiply(left, right)
-                    is DivOperation -> solver.integerFormula.divide(left, right)
-                }
-            }
+//            is BinaryOperation -> {
+//                val left = this.left.visit() as IntegerFormula
+//                val right = this.right.visit() as IntegerFormula
+//                when(this) {
+//                    is AddOperation -> solver.integerFormula.add(left, right)
+//                    is SubOperation -> solver.integerFormula.subtract(left, right)
+//                    is MulOperation -> solver.integerFormula.multiply(left, right)
+//                    is DivOperation -> solver.integerFormula.divide(left, right)
+//                }
+//            }
             else -> return null
         }
     }

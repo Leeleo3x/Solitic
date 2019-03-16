@@ -1,18 +1,20 @@
-package me.leo.project.solidity
+package me.leo.project.solidity.visitors
 
+import me.leo.project.solidity.SolidityBaseVisitor
+import me.leo.project.solidity.SolidityParser
 import me.leo.project.solidity.SolidityParser.*
-import me.leo.project.solidity.model.nodes.BlockStatement
-import me.leo.project.solidity.model.types.ArrayType
-import me.leo.project.solidity.model.types.MappingType
+import me.leo.project.solidity.model.types.IndexType
 import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.model.types.Type
 import org.antlr.v4.runtime.tree.TerminalNode
 
 
-class VariableCollector(val program: BlockStatement): SolidityBaseVisitor<Type?>() {
+class VariableCollector: SolidityBaseVisitor<Type?>() {
+
+    val symbols = HashMap<String, Type>()
 
     fun createVariable(name: String, type: Type) {
-        program.scope.symbols[name] = type
+        symbols[name] = type
     }
 
     override fun visitVariableDeclaration(ctx: VariableDeclarationContext): Type? {
@@ -50,7 +52,7 @@ class VariableCollector(val program: BlockStatement): SolidityBaseVisitor<Type?>
             2 -> return PrimitiveType.ADDRESS
             else -> {
                 visit(ctx.getChild(0))?.let {
-                    return ArrayType(it)
+                    return IndexType.ArrayType(it)
                 }
             }
         }
@@ -71,7 +73,7 @@ class VariableCollector(val program: BlockStatement): SolidityBaseVisitor<Type?>
         visitElementaryTypeName(ctx.elementaryTypeName())?.let {
             indexType ->
             visitTypeName(ctx.typeName())?.let {
-                return MappingType(indexType, it)
+                return IndexType.MappingType(indexType, it)
             }
         }
         return null
