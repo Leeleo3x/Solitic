@@ -5,9 +5,6 @@ import com.google.gson.JsonObject
 import me.leo.project.solidity.*
 import me.leo.project.solidity.model.nodes.BlockStatement
 import me.leo.project.solidity.model.types.PrimitiveType
-import me.leo.project.solidity.solver.Solver
-import me.leo.project.solidity.synthesis.State
-import me.leo.project.solidity.synthesis.Synthesizer
 import me.leo.project.solidity.visitors.ConstraintBuilder
 import me.leo.project.solidity.visitors.VariableCollector
 import org.antlr.v4.runtime.CharStreams
@@ -25,7 +22,8 @@ fun prepareInitState(src: String, constraints: String) {
     val collector = VariableCollector()
     collector.visit(source)
     val builder = ConstraintBuilder(collector.symbols)
-    builder.visit(source)
+    val constraints = builder.visit(source)
+    print(constraints)
 }
 
 fun parseStandard(src: String) {

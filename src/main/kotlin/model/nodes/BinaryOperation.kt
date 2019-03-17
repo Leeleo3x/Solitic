@@ -4,6 +4,7 @@ import me.leo.project.solidity.model.types.PrimitiveType
 
 
 sealed class BinaryOperation(val left: Expression, val right: Expression): Expression() {
+    override val children = listOf(left, right)
 
     sealed class ArithmeticOperation(left: Expression, right: Expression): BinaryOperation(left, right) {
         class AddOperation(left: Expression, right: Expression): ArithmeticOperation(left, right)

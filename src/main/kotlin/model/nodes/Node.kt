@@ -3,11 +3,11 @@ package me.leo.project.solidity.model.nodes
 import me.leo.project.solidity.model.types.PrimitiveType
 import me.leo.project.solidity.model.types.Type
 
-interface NodeType
-
 abstract class Node {
     var parent: Node? = null
-    open val hasMuVariable = false
+    abstract val children: List<Node>
+    open val stateVariables: List<String>
+        get() = children.map { it.stateVariables }.flatten()
 
     fun pathToRoot(): Iterable<Node> {
         return NodeIterable(this)
@@ -41,7 +41,9 @@ abstract class Expression: Node() {
 
 abstract class AssignableExpression: Expression()
 
-abstract class Statement: Node()
+abstract class Statement: Node() {
+    override val children = emptyList<Statement>()
+}
 
 
 class NodeIterable(private val node: Node?): Iterable<Node> {

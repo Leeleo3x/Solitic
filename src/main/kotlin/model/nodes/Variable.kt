@@ -4,8 +4,11 @@ import me.leo.project.solidity.model.types.Type
 import kotlin.reflect.KClass
 
 
-class Variable(type: Type, val name: String): AssignableExpression() {
+class Variable(type: Type, val isStateVariable: Boolean, val name: String): AssignableExpression() {
     init {
         this.type = type
     }
+    override val stateVariables = if (isStateVariable) listOf(name) else emptyList()
+    override val children
+        get() = emptyList<Node>()
 }

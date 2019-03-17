@@ -7,4 +7,7 @@ class PrimaryExpression(type: PrimitiveType, val value: String): Expression() {
     init {
         this.type = type
     }
+
+    override val children
+        get() = emptyList<Node>()
 }

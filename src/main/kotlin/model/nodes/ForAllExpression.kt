@@ -7,6 +7,6 @@ class ForAllExpression(val variable: String, val constraint: Expression): Expres
     init {
         type = PrimitiveType.BOOLEAN
     }
-    override val hasMuVariable = true
+    override val children = listOf(constraint)
 }
 
