@@ -6,6 +6,10 @@ class SumExpression(val variable: String, val value: Expression, val predicate: 
     init {
         type = PrimitiveType.INT
     }
+    val stateVariable = createVariable(PrimitiveType.ANY)
 
     override val children = listOf(value, predicate)
+
+    override val isMuExpression
+        get() = false
 }

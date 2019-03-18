@@ -9,6 +9,9 @@ abstract class Node {
     open val stateVariables: List<String>
         get() = children.map { it.stateVariables }.flatten()
 
+    open val muVariables: List<String>
+        get() = children.map { it.muVariables }.flatten()
+
     fun pathToRoot(): Iterable<Node> {
         return NodeIterable(this)
     }
@@ -37,6 +40,9 @@ abstract class Node {
 abstract class Expression: Node() {
     var type: Type = PrimitiveType.ANY
     override val scope: Scope? = null
+
+    open val isMuExpression
+        get() = muVariables.isNotEmpty()
 }
 
 abstract class AssignableExpression: Expression()

@@ -9,6 +9,7 @@ class Variable(type: Type, val isStateVariable: Boolean, val name: String): Assi
         this.type = type
     }
     override val stateVariables = if (isStateVariable) listOf(name) else emptyList()
+    override val muVariables = if (isStateVariable) emptyList() else listOf(name)
     override val children
         get() = emptyList<Node>()
 }

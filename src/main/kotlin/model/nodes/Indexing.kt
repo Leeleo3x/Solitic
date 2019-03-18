@@ -10,4 +10,8 @@ class Indexing(val variable: Expression, val indexing: Expression): AssignableEx
 
     override val children: List<Node>
         get() = listOf(variable, indexing)
+
+    override val isMuExpression: Boolean by lazy {
+        (indexing as? Variable)?.isStateVariable == false
+    }
 }

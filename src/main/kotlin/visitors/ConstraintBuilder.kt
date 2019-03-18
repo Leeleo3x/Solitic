@@ -48,7 +48,7 @@ class ConstraintBuilder(private val symbols: Map<String, Type>): SolidityBaseVis
                     visit(ctx.getChild(2))?.let { right ->
                         updateType(left, PrimitiveType.INT)
                         updateType(right, PrimitiveType.INT)
-                        return BinaryOperation.operators[ctx.getChild(1).text]?.primaryConstructor?.call(left, right)
+                        val operation = BinaryOperation.operators[ctx.getChild(1).text]?.primaryConstructor?.call(left, right)
                     }
                 }
             }
